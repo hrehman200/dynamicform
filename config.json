@@ -1,0 +1,87 @@
+{
+  "variables": {
+    "form title": "Progress Note",
+    "name": "John Smith",
+    "title": "Dr",
+    "suffix": "PsyD, LP",
+    "company": "Whatever something company name",
+    "address": "street, city, zip",
+    "phone": "number",
+    "fax": "optional number",
+    "email": "hrehman200@gmail.com",
+    "mail report": 1,
+    "mail header": "some email title",
+    "mail body": "some text for the body",
+    "output header": "Can write whatever here and use variables from above",
+    "output footer": "Can write whatever here and use variables from above"
+  },
+
+  "form": {
+    "gender": [
+      "male",
+      "female",
+      "transgender male to female",
+      "transgender female to male"
+    ]
+  },
+
+  "questions": {
+    "Background Information": [
+      {
+        "text": "Where were you born?",
+        "multiresponse": 0,
+        "answers": [
+          "Minnesota",
+          "Wisconsin",
+          "Iowa",
+          "North Dakota",
+          "South Dakota",
+          "textfield"
+        ],
+        "responses": [
+          "The client was born in [ans].",
+          "The client stated they were born in [ans].",
+          "[pronoun option] said [pronoun option] was born in [response].",
+          "[pronoun option] was born in [response]."
+        ]
+      },
+      {
+        "text": "What is your ethnicity?",
+        "multiresponse": 1,
+        "answers": [
+          "Caucasian",
+          "African",
+          "Asian",
+          "Indian",
+          "Native American",
+          "textfield"
+        ],
+        "responses": [
+          "The client identified [pronoun choice] as [response list].",
+          "The client stated they were [response list].",
+          "[pronoun option] said [pronoun option] identified as [response list].",
+          "[pronoun option] noted [pronoun option] ethinicity was [response list]."
+        ]
+      }
+    ],
+    "Mental Status": [{
+      "text": "How is your appetite?",
+      "multiresponse": 0,
+      "answers": [
+        "eating too much",
+        "eating too little",
+        "good",
+        "okay/fair",
+        "poor",
+        "textfield"
+      ],
+      "responses": [
+        "The client stated [pronoun option] appetite is [response].",
+        "[pronoun option] said [pronoun option] is [response].",
+        "[pronoun option] said [pronoun option] was born in [response].",
+        "[pronoun option] was born in [response]."
+      ]
+    }]
+  }
+}
+
