@@ -5,6 +5,10 @@ $variables = $config['variables'];
 $form = $config['form'];
 $questions = $config['questions'];
 
+if(isset($_POST)) {
+
+}
+
 ?>
 
 <!doctype html>
@@ -17,10 +21,10 @@ $questions = $config['questions'];
 </head>
 <body>
 
-<div class="container">
+<div class="container" style="margin:30px;">
     <h3><?= $variables['form title'] ?></h3>
 
-    <form>
+    <form method="post" action="<?=$_SERVER['PHP_SELF']?>">
         <?php
         foreach($form as $key=>$value) {
             ?>
@@ -53,14 +57,22 @@ $questions = $config['questions'];
                 $ans_count = 0;
                 foreach ($q['answers'] as $ans) {
                     $main_control = $q['multiresponse'] ? 'checkbox' : 'radio';
-                    $sub_control = '';
+                    $qs_name = $q['multiresponse'] ? "qs_{$qs_count}[]" : "qs_{$qs_count}";
                     ?>
                     <div class="form-check">
-                        <input class="form-check-input" type="<?=$main_control?>" name="qs_<?= $qs_count ?>" id="<?="qs_{$qs_count}_ans_{$ans_count}"?>"
-                               value="<?= $v ?>">
-                        <label class="form-check-label" for="<?="qs_{$qs_count}_ans_{$ans_count}"?>">
-                            <?= $ans ?>
-                        </label>
+                        <input class="form-check-input" type="<?=$main_control?>" name="<?=$qs_name?>" id="<?="qs_{$qs_count}_ans_{$ans_count}"?>"
+                               value="<?= $ans ?>">
+                        <?php
+                        if($ans == 'textfield') {
+                            echo sprintf('<input type="text" class="form-control-sm textfield" name="textfield_%d" disabled />', $qs_count);
+                        } else {
+                            ?>
+                            <label class="form-check-label" for="<?= "qs_{$qs_count}_ans_{$ans_count}" ?>">
+                                <?= $ans ?>
+                            </label>
+                            <?php
+                        }
+                        ?>
                     </div>
                     <?php
                     $ans_count++;
@@ -79,6 +91,15 @@ $questions = $config['questions'];
 <script src="js/jquery-3.2.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('input[type="checkbox"], input[type="radio"]').on('change', function(e) {
+            if($(this).next('.textfield').length > 0) {
+                $(this).next('.textfield').prop('disabled', !$(this).is(':checked'));
+            }
+        });
+    });
+</script>
 </body>
 </html>
 
