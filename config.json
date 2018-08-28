@@ -39,10 +39,10 @@
           "textfield"
         ],
         "responses": [
-          "The client was born in [ans].",
-          "The client stated they were born in [ans].",
-          "[pronoun option] said [pronoun option] was born in [response].",
-          "[pronoun option] was born in [response]."
+          "The client was born in [response].",
+          "The client stated they were born in [response].",
+          "[heshe] said [heshe] was born in [response].",
+          "[heshe] was born in [response]."
         ]
       },
       {
@@ -57,10 +57,10 @@
           "textfield"
         ],
         "responses": [
-          "The client identified [pronoun choice] as [response list].",
+          "The client identified [self] as [response list].",
           "The client stated they were [response list].",
-          "[pronoun option] said [pronoun option] identified as [response list].",
-          "[pronoun option] noted [pronoun option] ethinicity was [response list]."
+          "[heshe] said [heshe] identified as [response list].",
+          "[heshe] noted [hisher] ethinicity was [response list]."
         ]
       }
     ],
@@ -76,10 +76,8 @@
         "textfield"
       ],
       "responses": [
-        "The client stated [pronoun option] appetite is [response].",
-        "[pronoun option] said [pronoun option] is [response].",
-        "[pronoun option] said [pronoun option] was born in [response].",
-        "[pronoun option] was born in [response]."
+        "The client stated [hisher] appetite is [response].",
+        "[heshe] said [heshe] is [response]."
       ]
     }]
   }
