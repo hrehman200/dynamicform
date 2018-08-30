@@ -35,17 +35,20 @@ function getVariableValue($variable) {
     return $variables[$variable];
 }
 
+// load stuff from json
 $string = file_get_contents("./config.json");
 $config = json_decode($string, true);
 $variables = $config['variables'];
 $form = $config['form'];
 $questions = $config['questions'];
 
+// if r=1 in url, reset the form
 if(isset($_GET['r'])) {
     unset($_POST);
 }
 
-if (isset($_POST)) {
+// if form submitted
+if (count($_POST) > 0) {
     $gender = $_POST['gender'];
     switch ($gender) {
         case 'male':
@@ -66,6 +69,7 @@ if (isset($_POST)) {
             break;
     }
 
+    // put all questions, irrespective of their heading, into one array, so that later we access a qs by numerical index
     $arr_questions = [];
     $arr_answers = [];
     foreach ($questions as $heading => $qs) {
@@ -74,15 +78,22 @@ if (isset($_POST)) {
         }
     }
 
+    // loop each submitted form value
     foreach ($_POST as $key => $value) {
+        // if the name of form value contains qs_
         if (stripos($key, 'qs_') !== false) {
+            // extract the qs index
             $qs_index = str_replace('qs_', '', $key);
             if ($qs_index >= 0) {
+                // get the question structure via index from questions array we created above
                 $the_qs = $arr_questions[$qs_index];
-                $response = $the_qs['responses'][array_rand($the_qs['responses'])]; // pick a random response
+                // pick a random response
+                $response = $the_qs['responses'][array_rand($the_qs['responses'])];
 
+                // if the qs is multiresponse, in which case array will be submitted from form
                 if (is_array($value)) {
 
+                    // go through each response, and if response if textfield, fetch value from textfield_[qs_index]
                     $value = array_map(function($v) use ($qs_index) {
                         if($v == 'textfield') {
                             $v = $_POST['textfield_'.$qs_index];
@@ -90,6 +101,7 @@ if (isset($_POST)) {
                         return $v;
                     }, $value);
 
+                    // combine all responses a, b, c like a, b and c
                     $str_value = implode(", ", $value);
                     $value = str_lreplace(", ", " and ", $str_value);
                     $result = str_replace('[response list]', $value, $response);
@@ -105,6 +117,7 @@ if (isset($_POST)) {
                 $result = str_replace('[himher]', $himher, $result);
                 $result = str_replace('[hisher]', $hisher, $result);
 
+                // add the constructed response to an array of answers
                 $arr_answers[] = ucfirst($result);
             }
         }
@@ -128,6 +141,7 @@ if (isset($_POST)) {
 <div class="container" style="margin:30px;">
 
     <?php
+    // if form not submitted, show first page with form
     if(count($_POST) == 0) {
         ?>
         <h3><?= getVariableValue('form title') ?></h3>
@@ -154,6 +168,7 @@ if (isset($_POST)) {
             <hr/>
 
             <?php
+            // loop all questions and render them in a form
             $qs_count = 0;
             foreach ($questions as $heading => $qs) {
                 ?>
@@ -197,12 +212,13 @@ if (isset($_POST)) {
             <button type="button" class="btn btn-secondary">Reset</button>
         </form>
         <?php
-    } else {
+    } else {   // if form submitted
         ?>
         <div class="output">
             <p><?=getVariableValue('output header')?></p>
             <h3 style="text-align: center;"><?=getVariableValue('form title')?></h3>
             <?php
+            // go through all questions and display corresponding answers
             $qs_count = 0;
             foreach ($questions as $heading => $qs) {
                 echo sprintf('<b><u>%s</u></b><br/>', $heading);
@@ -233,12 +249,15 @@ if (isset($_POST)) {
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(function () {
+
+        // if a radio button or checkbox beside textfield is clicked, enable that textfield
         $('input[type="checkbox"], input[type="radio"]').on('change', function (e) {
             if ($(this).next('.textfield').length > 0) {
                 $(this).next('.textfield').prop('disabled', !$(this).is(':checked'));
             }
         });
 
+        // send email on email click
         $('.btnEmail').on('click', function(e) {
             e.preventDefault();
             $.post( "ajax.php", {
