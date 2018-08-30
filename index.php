@@ -17,6 +17,24 @@ function str_lreplace($search, $replace, $subject) {
     return $subject;
 }
 
+/**
+ * Replaces a variable name in a string and returns the value
+ *
+ * @param $variable
+ * @return mixed
+ */
+function getVariableValue($variable) {
+    global $variables;
+
+    preg_match_all('/\\[(.*?)\\]/', $variables[$variable], $matches, PREG_SET_ORDER);
+    if(count($matches[0]) > 0) {
+        $other_variable_used = $matches[0][1];
+        $value = str_replace($matches[0][0], $variables[$other_variable_used], $variables[$variable]);
+        return $value;
+    }
+    return $variables[$variable];
+}
+
 $string = file_get_contents("./config.json");
 $config = json_decode($string, true);
 $variables = $config['variables'];
@@ -74,7 +92,7 @@ if (isset($_POST)) {
 
                     $str_value = implode(", ", $value);
                     $value = str_lreplace(", ", " and ", $str_value);
-                    $result = str_replace('[response list]', $value, $response) . '<br>';
+                    $result = str_replace('[response list]', $value, $response);
                 } else {
                     if($value == 'textfield') {
                         $value = $_POST['textfield_'.$qs_index];
@@ -103,16 +121,16 @@ if (isset($_POST)) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <title><?= $variables['form title'] ?></title>
+    <title><?= getVariableValue('form title') ?></title>
 </head>
 <body>
 
 <div class="container" style="margin:30px;">
 
     <?php
-    if(!isset($_POST)) {
+    if(count($_POST) == 0) {
         ?>
-        <h3><?= $variables['form title'] ?></h3>
+        <h3><?= getVariableValue('form title') ?></h3>
 
         <form method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
             <?php
@@ -182,8 +200,8 @@ if (isset($_POST)) {
     } else {
         ?>
         <div class="output">
-            <p><?=$variables['output header']?></p>
-            <h3 style="text-align: center;"><?=$variables['form title']?></h3>
+            <p><?=getVariableValue('output header')?></p>
+            <h3 style="text-align: center;"><?=getVariableValue('form title')?></h3>
             <?php
             $qs_count = 0;
             foreach ($questions as $heading => $qs) {
@@ -192,19 +210,19 @@ if (isset($_POST)) {
                     echo $arr_answers[$qs_count]." ";
                     $qs_count++;
                 }
-                echo '<br>';
+                echo '<br/><br/>';
             }
             ?>
-            <p><br><?=$variables['output footer']?></p>
-            <?php
-            if($variables['mail report']) {
-                ?>
-                <button type="button" class="btn btn-primary btnEmail">Email</button>
-                <?php
-            }
-            ?>
-            <a href="<?=$_SERVER['PHP_SELF'].'?r=1'?>" class="btn btn-secondary">Reset</a>
+            <p><?=getVariableValue('output footer')?></p>
         </div>
+        <?php
+        if(getVariableValue('mail report')) {
+            ?>
+            <button type="button" class="btn btn-primary btnEmail">Email</button>
+            <?php
+        }
+        ?>
+        <a href="<?=$_SERVER['PHP_SELF'].'?r=1'?>" class="btn btn-secondary">Reset</a>
         <?php
     }
     ?>
@@ -226,7 +244,7 @@ if (isset($_POST)) {
             $.post( "ajax.php", {
                 email: "<?=$variables['email']?>",
                 subject: "Results",
-                body: "<?=$variables['mail header'].'<br><br>'.$variables['mail body']?>" + $('.output').html()
+                body: "<?=getVariableValue('mail header').'<br><br>'.getVariableValue('mail body')?>" + $('.output').html()
             })
                 .done(function( data ) {
                     alert("Email sent");

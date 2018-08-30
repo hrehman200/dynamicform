@@ -12,8 +12,8 @@
     "mail report": 1,
     "mail header": "some email title",
     "mail body": "some text for the body",
-    "output header": "Can write whatever here and use variables from above",
-    "output footer": "Can write whatever here and use variables from above"
+    "output header": "[company] write whatever here and use variables from above",
+    "output footer": "Can write [suffix] here and use variables from above"
   },
 
   "form": {
@@ -26,6 +26,22 @@
   },
 
   "questions": {
+    "Other Status": [{
+      "text": "How is your appetite?",
+      "multiresponse": 0,
+      "answers": [
+        "eating too much",
+        "eating too little",
+        "good",
+        "okay/fair",
+        "poor",
+        "textfield"
+      ],
+      "responses": [
+        "The client stated [hisher] appetite is [response].",
+        "[heshe] said [heshe] is [response]."
+      ]
+    }],
     "Background Information": [
       {
         "text": "Where were you born?",
