@@ -4,18 +4,17 @@
     "name": "John Smith",
     "title": "Dr",
     "suffix": "PsyD, LP",
-    "company": "Whatever something company name",
+    "company": "ACP",
     "address": "street, city, zip",
     "phone": "number",
     "fax": "optional number",
-    "email": "hrehman200@gmail.com",
+    "email": "exploremn@hotmail.com",
     "mail report": 1,
     "mail header": "some email title",
     "mail body": "some text for the body",
-    "output header": "[company] write whatever here and use variables from above",
-    "output footer": "Can write [suffix] here and use variables from above"
+    "output header": "[name] wrote this report",
+    "output footer": "[company]"
   },
-
   "form": {
     "gender": [
       "male",
@@ -24,78 +23,152 @@
       "transgender female to male"
     ]
   },
-
   "questions": {
-    "Other Status": [{
-      "text": "How is your appetite?",
-      "multiresponse": 0,
-      "answers": [
-        "eating too much",
-        "eating too little",
-        "good",
-        "okay/fair",
-        "poor",
-        "textfield"
-      ],
-      "responses": [
-        "The client stated [hisher] appetite is [response].",
-        "[heshe] said [heshe] is [response]."
-      ]
-    }],
-    "Background Information": [
+    "Consent": [
       {
-        "text": "Where were you born?",
+        "text": "What kind of consent was obtained?",
         "multiresponse": 0,
         "answers": [
-          "Minnesota",
-          "Wisconsin",
-          "Iowa",
-          "North Dakota",
-          "South Dakota",
-          "textfield"
+          "The client gave written",
+          "The client gave verbal",
+          "The client's POA/guardian gave written",
+          "The client's POA/guardian gave verbal",
+          "The family gave written",
+          "The family gave verbal"
         ],
         "responses": [
-          "The client was born in [response].",
-          "The client stated they were born in [response].",
-          "[heshe] said [heshe] was born in [response].",
-          "[heshe] was born in [response]."
-        ]
-      },
-      {
-        "text": "What is your ethnicity?",
-        "multiresponse": 1,
-        "answers": [
-          "Caucasian",
-          "African",
-          "Asian",
-          "Indian",
-          "Native American",
-          "textfield"
-        ],
-        "responses": [
-          "The client identified [self] as [response list].",
-          "The client stated they were [response list].",
-          "[heshe] said [heshe] identified as [response list].",
-          "[heshe] noted [hisher] ethinicity was [response list]."
+          "[response] consent."
         ]
       }
     ],
-    "Mental Status": [{
-      "text": "How is your appetite?",
-      "multiresponse": 0,
-      "answers": [
-        "eating too much",
-        "eating too little",
-        "good",
-        "okay/fair",
-        "poor",
-        "textfield"
-      ],
-      "responses": [
-        "The client stated [hisher] appetite is [response].",
-        "[heshe] said [heshe] is [response]."
-      ]
-    }]
+    "Subjective Findings": [
+      {
+        "text": "Medication complaince?",
+        "multiresponse": 0,
+        "answers": [
+          "compliant",
+          "noncompliant",
+          "partially compliant"
+        ],
+        "responses": [
+          "The client stated [heshe] was [response] with currently prescribed medication.",
+          "[heshe] reported being [response] with medication.",
+          "[heshe] has been [response] with medication."
+        ]
+      },
+      {
+        "text": "Medication effectiveness?",
+        "multiresponse": 0,
+        "answers": [
+          "helpful",
+          "somewhat helpful",
+          "not helpful"
+        ],
+        "responses": [
+          "[heshe] gave this test [response] under medication effectiveness."
+        ]
+      },
+      {
+        "text": "Medication side effects?",
+        "multiresponse": 1,
+        "answers": [
+          "no",
+          "sedation",
+          "appetite",
+          "G.I.",
+          "sexual",
+          "tremor",
+          "involuntary movement",
+          "akathisia"
+        ],
+        "responses": [
+          "[heshe] gave this test [response list] under medication side effects."
+        ]
+      },
+      {
+        "text": "Appetite?",
+        "multiresponse": 0,
+        "answers": [
+          "normal",
+          "poor",
+          "fair",
+          "good",
+          "excessive",
+          "diminished"
+        ],
+        "responses": [
+          "[heshe] gave this test [response] under appetite."
+        ]
+      },
+      {
+        "text": "Sleep?",
+        "multiresponse": 0,
+        "answers": [
+          "normal",
+          "poor/broken",
+          "fair",
+          "good",
+          "difficulty initiating",
+          "difficulty maintaining",
+          "too much",
+          "too little"
+        ],
+        "responses": [
+          "[heshe] gave this test [response] under sleep."
+        ]
+      },
+      {
+        "text": "Reported Mood",
+        "multiresponse": 1,
+        "answers": [
+          "euthymic",
+          "euphoric",
+          "irritable",
+          "fearful",
+          "dysphoric",
+          "angry",
+          "irritated",
+          "frustrated",
+          "anxious",
+          "worried",
+          "sad",
+          "depressed",
+          "hurt",
+          "labile",
+          "apathetic",
+          "suspicious",
+          "guilt",
+          "shame"
+        ],
+        "responses": [
+          "[heshe] gave this test [response list] under mood."
+        ]
+      }
+    ],
+    "Objective Findings/Mental Status Assessment": [
+      {
+        "text": "Affect?",
+        "multiresponse": 1,
+        "answers": [
+          "appropriate",
+          "inappropriate",
+          "congruent",
+          "full range",
+          "constricted",
+          "heightened",
+          "depressed",
+          "expansive",
+          "blunted",
+          "flat",
+          "labile",
+          "textfield"
+        ],
+        "responses": [
+          "The client's affect is [response list].",
+          "[hisher] affect appeared to be [response list]."
+        ]
+      }
+    ]
   }
 }
 
