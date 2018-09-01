@@ -27,9 +27,12 @@ function getVariableValue($variable) {
     global $variables;
 
     preg_match_all('/\\[(.*?)\\]/', $variables[$variable], $matches, PREG_SET_ORDER);
-    if(count($matches[0]) > 0) {
-        $other_variable_used = $matches[0][1];
-        $value = str_replace($matches[0][0], $variables[$other_variable_used], $variables[$variable]);
+    if(count($matches) > 0) {
+        $value = $variables[$variable];
+        for($i=0; $i<count($matches); $i++) {
+            $other_variable_used = $matches[$i][1];
+            $value = str_replace($matches[$i][0], $variables[$other_variable_used], $value);
+        }
         return $value;
     }
     return $variables[$variable];
@@ -118,7 +121,7 @@ if (count($_POST) > 0) {
                 $result = str_replace('[hisher]', $hisher, $result);
 
                 // add the constructed response to an array of answers
-                $arr_answers[] = ucfirst($result);
+                $arr_answers[$qs_index] = ucfirst($result);
             }
         }
     }
