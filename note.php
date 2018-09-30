@@ -75,10 +75,10 @@ if (count($_POST) > 0) {
             $self = 'herself';
             $hisher = 'her';
             break;
-        case 'transgender male to female':
-            break;
-        case 'transgender female to male':
-            break;
+//        case 'transgender male to female':
+//            break;
+//        case 'transgender female to male':
+//            break;
     }
 
     // put all questions, irrespective of their heading, into one array, so that later we access a qs by numerical index
@@ -174,7 +174,7 @@ if (count($_POST) > 0) {
                 <?php
                 foreach ($value as $v) {
                     ?>
-                    <div class="form-check">
+                    <div class="form-check <?=($variables['vertical_ans'] == 0) ? 'form-check-inline' : ''?>">
                         <input class="form-check-input" type="radio" name="<?= $key ?>" id="<?= $v ?>"
                                value="<?= $v ?>">
                         <label class="form-check-label" for="<?= $v ?>">
@@ -203,7 +203,7 @@ if (count($_POST) > 0) {
                         $main_control = $q['multiresponse'] ? 'checkbox' : 'radio';
                         $qs_name = $q['multiresponse'] ? "qs_{$qs_count}[]" : "qs_{$qs_count}";
                         ?>
-                        <div class="form-check">
+                        <div class="form-check <?=($variables['vertical_ans'] == 0) ? 'form-check-inline' : ''?>">
                             <input class="form-check-input" type="<?= $main_control ?>" name="<?= $qs_name ?>"
                                    id="<?= "qs_{$qs_count}_ans_{$ans_count}" ?>"
                                    value="<?= $ans ?>">
